@@ -1,8 +1,11 @@
-export function add(a: number, b: number): number {
-  return a + b;
+import { toCamelCase } from "jsr:@std/text";
+
+function hello(text: string) {
+  console.log(toCamelCase(text));
 }
 
+// Only true if this file is run directly from Deno cli
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
+  hello("Hello, world!");
 }
