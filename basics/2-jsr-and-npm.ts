@@ -1,3 +1,6 @@
+/**
+ * import @std library from jsr.io
+ */
 import { invert } from "jsr:@std/collections";
 
 const someObject = { a: "x", b: "y", c: "z" };
