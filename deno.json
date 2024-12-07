@@ -4,7 +4,8 @@
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
-    "@std/collections": "jsr:@std/collections@^1.0.9"
+    "@std/collections": "jsr:@std/collections@^1.0.9",
+    "@std/expect": "jsr:@std/expect@^1.0.9"
   },
   "fmt": {
     "useTabs": true,
