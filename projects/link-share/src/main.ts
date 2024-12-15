@@ -1,25 +1,17 @@
+// deno-lint-ignore-file require-await
 import { serveDir } from "@std/http";
+import { Router } from "./router.ts";
 
-const userPagePattern = new URLPattern({ pathname: "/users/:id" });
-const staticPathPattern = new URLPattern({ pathname: "/static/*" });
+const router = new Router();
+router.get("/", async () => new Response("Hello, World!"));
+router.get("/static/*", async (req) => serveDir(req));
+router.get(
+  "/users/:id",
+  async (_req, match) => new Response(match.pathname.groups.id),
+);
 
 export default {
-  fetch(req) {
-    const url = new URL(req.url);
-
-    if (url.pathname === "/") {
-      return new Response("Home page");
-    }
-
-    const userPageMatch = userPagePattern.exec(url);
-    if (userPageMatch) {
-      return new Response(userPageMatch.pathname.groups.id);
-    }
-
-    if (staticPathPattern.test(url)) {
-      return serveDir(req);
-    }
-
-    return new Response("Not found", { status: 404 });
+  fetch(req, info?) {
+    return router.handle(req, info);
   },
 } satisfies Deno.ServeDefaultExport;
